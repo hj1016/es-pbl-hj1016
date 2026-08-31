@@ -6,8 +6,8 @@
 - 사용자가 입력할 검색 질문 1: Elasticsearch 9.x Docker 환경에서 `master_not_discovered_exception`이 발생한 원인과 해결 방법은 무엇인가?
 - 사용자가 입력할 검색 질문 2: macOS에서 Docker 컨테이너가 `unhealthy` 상태가 된 사례 중 검증된 해결 방법은 무엇인가?
 - 사용자가 입력할 검색 질문 3: Spring Boot에서 `Connection refused`가 발생한 사례 중 현재 기술 버전과 일치하는 해결 방법은 무엇인가?
-- 필터에 사용할 분류 필드 후보:
-- 정렬에 사용할 숫자·날짜 필드 후보:
+- 필터에 사용할 분류 필드 후보: 사용 기술(`technology`), 기술 버전(`version`), 운영체제(`os`), 오류 유형(`error_category`), 해결 검증 여부(`verified`)
+- 정렬에 사용할 숫자·날짜 필드 후보: 해결 소요 시간(`resolution_minutes`), 도움됨 횟수(`helpful_count`), 사례 등록일(`created_at`)
 - Dashboard에서 답할 질문 1:
 
 ## 범위 확인
