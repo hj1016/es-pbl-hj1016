@@ -8,7 +8,7 @@
 
 ## 2. 실행 순서
 
-1. Docker 환경 시작:
+1. Docker 환경 시작: 강의 저장소의 `day-01/docker`에서 `.env.example`을 `.env`로 복사하고 교육용 비밀번호를 입력한 뒤, `docker compose pull` → `docker compose up --detach` → `docker compose ps --all` 순서로 실행한다. `es01`, `es02`, `es03`, `kibana`가 모두 `healthy`인지 확인한다.
 2. index와 mapping 생성:
 3. 데이터 생성·Bulk 적재:
 4. 검색 요청 실행:

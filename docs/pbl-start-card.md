@@ -8,7 +8,7 @@
 - 사용자가 입력할 검색 질문 3: Spring Boot에서 `Connection refused`가 발생한 사례 중 현재 기술 버전과 일치하는 해결 방법은 무엇인가?
 - 필터에 사용할 분류 필드 후보: 사용 기술(`technology`), 기술 버전(`version`), 운영체제(`os`), 오류 유형(`error_category`), 해결 검증 여부(`verified`)
 - 정렬에 사용할 숫자·날짜 필드 후보: 해결 소요 시간(`resolution_minutes`), 도움됨 횟수(`helpful_count`), 사례 등록일(`created_at`)
-- Dashboard에서 답할 질문 1:
+- Dashboard에서 답할 질문 1: 어떤 기술과 오류 유형에서 검증된 해결 사례가 많이 등록되었으며, 평균 해결 소요 시간이 가장 긴 영역은 무엇인가?
 
 ## 범위 확인
 
