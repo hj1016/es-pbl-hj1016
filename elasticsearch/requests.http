@@ -1,0 +1,131 @@
+# 개인 저장소에서 실행한 Elasticsearch 요청을 토픽별로 기록한다.
+# Kibana Dev Tools Console에 요청을 한 블록씩 복사하여 실행한다.
+
+### V1-T09-C · 기본 node 표
+
+GET /_cat/nodes?v
+
+### V1-T09-C · node 이름, IP, 역할, master, version 확인
+
+GET /_cat/nodes?v&h=name,ip,node.role,master,version
+
+### V1-T09-C · 현재 index 목록 확인
+
+GET /_cat/indices?v
+
+### V1-T12-P · 개인 index 존재 확인
+
+# 404 index_not_found_exception이면 다음 PUT 요청을 실행한다.
+# 이미 index가 존재하면 PUT 요청을 다시 실행하지 않는다.
+GET /devfix-cases
+
+### V1-T12-P · 개인 index 생성
+
+PUT /devfix-cases
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "case_id": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text"
+      },
+      "symptoms": {
+        "type": "text"
+      },
+      "error_message": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "technology": {
+        "type": "keyword"
+      },
+      "version": {
+        "type": "keyword"
+      },
+      "os": {
+        "type": "keyword"
+      },
+      "error_category": {
+        "type": "keyword"
+      },
+      "cause": {
+        "type": "text"
+      },
+      "solution": {
+        "type": "text"
+      },
+      "verified": {
+        "type": "boolean"
+      },
+      "resolution_minutes": {
+        "type": "integer"
+      },
+      "helpful_count": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "date"
+      }
+    }
+  }
+}
+
+### V1-T12-P · 생성 결과와 mapping 확인
+
+GET /devfix-cases
+
+GET /devfix-cases/_mapping
+
+### V1-T12-P · 문서 수와 shard 상태 확인
+
+GET /devfix-cases/_count
+
+GET /_cat/shards/devfix-cases?v
+
+### V1-T15-P · Bulk 적재 후 실제 문서 수 확인
+
+GET /devfix-cases/_count
+
+### V1-T15-P · 분류·검증 여부·해결 시간 분포 확인
+
+# DevFix에서 상품 예제의 category에 해당하는 field는 error_category다.
+# technology는 배열 field이므로 bucket 문서 수의 합이 전체 count보다 클 수 있다.
+GET /devfix-cases/_search
+{
+  "size": 0,
+  "aggs": {
+    "error_category_count": {
+      "terms": {
+        "field": "error_category",
+        "size": 20
+      }
+    },
+    "technology_count": {
+      "terms": {
+        "field": "technology",
+        "size": 20
+      }
+    },
+    "verified_count": {
+      "terms": {
+        "field": "verified"
+      }
+    },
+    "resolution_minutes_stats": {
+      "stats": {
+        "field": "resolution_minutes"
+      }
+    }
+  }
+}

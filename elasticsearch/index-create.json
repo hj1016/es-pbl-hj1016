@@ -1,0 +1,58 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "case_id": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text"
+      },
+      "symptoms": {
+        "type": "text"
+      },
+      "error_message": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "technology": {
+        "type": "keyword"
+      },
+      "version": {
+        "type": "keyword"
+      },
+      "os": {
+        "type": "keyword"
+      },
+      "error_category": {
+        "type": "keyword"
+      },
+      "cause": {
+        "type": "text"
+      },
+      "solution": {
+        "type": "text"
+      },
+      "verified": {
+        "type": "boolean"
+      },
+      "resolution_minutes": {
+        "type": "integer"
+      },
+      "helpful_count": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "date"
+      }
+    }
+  }
+}
