@@ -1,77 +1,61 @@
-# Day 2 실제 실행 증거
+# Day 2 데이터 준비 결과
 
-공통과 개인을 구분한다. 실행하지 않은 결과는 미실행으로 적는다. 비밀번호와 인증 헤더는 기록하지 않는다.
+> 예시 문장을 복사하지 않고 DevFix의 실제 실행 결과를 작성한다.
+> 실행하지 않은 항목은 완료로 표시하지 않는다.
 
-## V1-T09-C/P 환경
+## 1. Index와 문서
 
-- 실행일: 2026-09-01
-- 실제 node 이름/버전/master: `es01` 9.5.0, `es02` 9.5.0(master `*`), `es03` 9.5.0
-- 실제 node role: 세 node 모두 `cdfhilmrstw`로 표시되며, role에 `m`이 있는 것과 현재 master에 `*`가 표시되는 것은 서로 다른 의미다.
-- 실제 node IP: `es01` 172.25.0.3, `es02` 172.25.0.4, `es03` 172.25.0.5
-- products 존재 여부 / 실제 CAT 값: 현재 `products` index는 없다. CAT 결과에는 점(`.`)으로 시작하는 Kibana·보안 관련 system index만 보이며, 제공된 결과에서 각 `docs.count`는 0이다.
-- 개인 index 이름: `devfix-cases`
-- 판정: PASS — node 3개와 version 9.5.0을 확인했고 현재 master는 `es02`다. `products`가 없는 상태는 생성 전이므로 정상이며, system index는 수정하거나 삭제하지 않는다.
+- Index 이름: `devfix-cases`
+- 문서 한 건의 의미: 오류 메시지, 실행 환경, 발생 원인, 해결 방법과 검증 결과를 담은 개발 오류 해결 사례 1건
+- 실제 색인 건수: 50,000건
+- Mapping의 `dynamic` 설정: `strict`
 
-## V1-T12-C/P 생성/조회
+## 2. 최종 Field
 
-- 공통/개인 구분, 대상 index:
-- 신규 생성 또는 기존 확인:
-- 요청과 실제 응답(settings/mapping/shards):
-- 기대/실제 비교:
+| Field | Type | 검색에서 사용할 목적 |
+|---|---|---|
+| `case_id` | `keyword` | 사례 업무 ID의 정확 비교와 결과 표시 |
+| `title` | `text` | 오류 사례 제목의 전문 검색과 결과 표시 |
+| `symptoms` | `text` | 사용자가 설명한 증상의 전문 검색 |
+| `error_message` | `text` + `keyword` multi-field | 오류 문자열의 전문 검색과 전체 값 정확 비교 |
+| `technology` | `keyword` 배열 | 기술별 filter·집계와 결과 표시 |
+| `version` | `keyword` | 기술 버전의 정확 조건 |
+| `os` | `keyword` | 운영체제별 filter·집계 |
+| `error_category` | `keyword` | 오류 유형별 filter·집계 |
+| `cause` | `text` | 발생 원인 설명의 전문 검색과 결과 표시 |
+| `solution` | `text` | 해결 방법의 전문 검색과 결과 표시 |
+| `verified` | `boolean` | 검증 완료 여부 filter·집계 |
+| `resolution_minutes` | `integer` | 해결 시간의 범위 조건·정렬·통계 집계 |
+| `helpful_count` | `integer` | 도움됨 횟수의 범위 조건·정렬·통계 집계 |
+| `created_at` | `date` | 등록 기간 filter와 최신순 정렬 |
 
-## V1-T13-C/P 분석
+## 3. 대량 데이터 생성·색인 결과
 
-| 입력 | 방식(standard/field) | 예상 token | 실제 token/position | 차이 이유 |
-|---|---|---|---|---|
-| | | | | |
+- 생성 건수:
+- 로컬 검증 결과:
+- Bulk 색인 결과:
+- ES 실제 `_count`:
+- 분류·숫자·boolean 분포 확인 결과:
 
-개인 검색어3개를 두 방식으로 각각 기록한다. 요청은 루트 requests.http에 보존한다.
+## 4. Day 3 연결
 
-## V1-T14-C/P CRUD
+- 검색 질문 기준: `docs/data-model.md`의 사용자 질문 3개
 
-- 대상 index / 임시 ID / 출발 count:
+## 5. 결과 파일 위치
 
-| 단계 | 예상 result | 실제 result | 실제 source/변경·유지 field |
-|---|---|---|---|
-| 생성 | | | |
-| 조회 | | | |
-| 수정/재조회 | | | |
-| 삭제/재조회 | | | |
+- Mapping:
+- 실행 요청:
+- 대표 문서:
+- 데이터 생성 설정:
+- 생성 표본:
+- 생성 요약:
 
-- 삭제 뒤 found/count:
-- 선택 noop/not_found 관찰:
+## 6. Pipeline 적용 판단
 
-## V1-T15-C/P 생성·적재
+- 적용 / 미적용 / 보류:
+- 판단 이유:
 
-- 생성 설정/명령/건수/seed:
-- 로컬 검사 결과:
-- 표본 ID/field/조건 사례 확인:
-- 실제 Bulk 결과 / 현재 단계 / S67에서 이어 할 작업:
+## 7. 미완료·오류
 
-## V1-T16-C simulate
-
-| 입력 사례 | 예상 변화/오류 | 실제 변화/오류 | 저장 여부 |
-|---|---|---|---|
-| Samsung | | | |
-| Apple | | | |
-| in_stock=false | | | |
-| temp 누락 | | | |
-
-## V1-T16-P 필수 개인 완료
-
-- 개인 index / 생성 건수 / 실제 ES count:
-- 분류 terms / 숫자 stats / 필요한 날짜 범위:
-- 계획과 실제 분포 차이 이유:
-- 선택 pipeline 실제 단건/GET/정리 결과(미구현이면 해당 없음):
-
-## 오류·재검증
-
-| 요청/파일 | 오류 | 수정 | 실제 재실행 결과 | 다음 조치 |
-|---|---|---|---|---|
-| | | | | |
-
-## 제출
-
-- commit hash / 현재 branch:
-- GitHub에서 확인한 동일 commit / push 실패라면 원인:
-- 미완료와 다음 요청:
+- 없음 또는 현재 상태:
+- 다음에 할 작업:
