@@ -10,17 +10,17 @@
 ## 2. 실행 순서
 
 1. Docker 환경 시작: 강의 저장소의 `day-01/docker`에서 `.env.example`을 `.env`로 복사하고 교육용 비밀번호를 입력한 뒤, `docker compose pull` → `docker compose up --detach` → `docker compose ps --all` 순서로 실행한다. ES 9.5.0의 `es01`, `es02`, `es03`과 Kibana가 모두 `healthy`이고, cluster 상태가 `green`이며 `number_of_nodes`가 `3`인 것을 확인했다.
-2. index와 mapping 생성:
-3. 데이터 생성·Bulk 적재:
+2. index와 mapping 생성: `devfix-cases`가 없는 것을 확인한 뒤 primary shard 1개, replica 1개, `dynamic: strict`와 14개 field mapping으로 생성했다. 생성 후 primary와 replica가 모두 `STARTED`이고 cluster가 `green`인 것을 확인했다.
+3. 데이터 생성·Bulk 적재: seed `20260901`로 합성 오류 사례 50,000건과 표본 30건을 생성했다. 로컬 schema·ID·NDJSON 검사를 통과한 뒤 Bulk API로 적재했으며 `errors=false`와 실제 `_count` 50,000건을 확인했다.
 4. 검색 요청 실행:
 5. Kibana Dashboard 확인:
 
 ## 3. 데이터와 mapping
 
-- 문서 수:
-- 데이터 생성 규칙과 seed:
-- 개인정보 미사용 확인:
-- 핵심 필드와 타입 선택 이유:
+- 문서 수: 합성 오류 해결 사례 50,000건, 제출용 표본 30건
+- 데이터 생성 규칙과 seed: seed `20260901`을 사용해 기술·버전·운영체제·오류 유형·검증 여부·해결 시간 등의 후보와 범위에서 재현 가능한 데이터를 생성했다.
+- 개인정보 미사용 확인: 개발자 실명·이메일·사번, 고객정보, 실제 내부 IP·호스트명, 계정·비밀번호·token과 실제 운영 로그를 사용하지 않았다.
+- 핵심 필드와 타입 선택 이유: 제목·증상·원인·해결 방법은 전문 검색을 위해 `text`, 기술·버전·운영체제·오류 유형은 정확한 filter와 집계를 위해 `keyword`로 정의했다. `error_message`는 전문 검색과 정확 비교를 모두 지원하도록 `text`와 `keyword` multi-field를 사용했다. 검증 여부는 `boolean`, 해결 시간과 도움됨 횟수는 `integer`, 등록일은 `date`로 정의했다.
 
 ## 4. 검색·품질 테스트
 
