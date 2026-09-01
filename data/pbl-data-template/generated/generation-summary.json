@@ -1,0 +1,73 @@
+{
+  "index": "devfix-cases",
+  "document_count": 50000,
+  "seed": 20260901,
+  "id_field": "case_id",
+  "files": {
+    "bulk": "devfix-cases-50000.ndjson",
+    "sample": "devfix-cases-sample-30.ndjson"
+  },
+  "field_kinds": [
+    {
+      "name": "case_id",
+      "kind": "id"
+    },
+    {
+      "name": "technology",
+      "kind": "tags"
+    },
+    {
+      "name": "version",
+      "kind": "choice"
+    },
+    {
+      "name": "os",
+      "kind": "choice"
+    },
+    {
+      "name": "error_category",
+      "kind": "choice"
+    },
+    {
+      "name": "error_message",
+      "kind": "choice"
+    },
+    {
+      "name": "title",
+      "kind": "template"
+    },
+    {
+      "name": "symptoms",
+      "kind": "template"
+    },
+    {
+      "name": "cause",
+      "kind": "choice"
+    },
+    {
+      "name": "solution",
+      "kind": "choice"
+    },
+    {
+      "name": "verified",
+      "kind": "boolean"
+    },
+    {
+      "name": "resolution_minutes",
+      "kind": "integer"
+    },
+    {
+      "name": "helpful_count",
+      "kind": "integer"
+    },
+    {
+      "name": "created_at",
+      "kind": "date"
+    }
+  ],
+  "generated_at": "deterministic-from-seed",
+  "fixed_document_count": 0,
+  "settings_sha256": "BE25B1210B607D3AD2792B2344FB82703F89F0ADB28B42AC6C88270D409D2658",
+  "bulk_sha256": "CC5344E72E3B18A1A8A7A86CD143078761A451DEA21D70689FB8464A2C733833",
+  "mapping_sha256": "C17A99CEDF4B12A446CFBD00111C1C68B1D6A251B7C1A37F3B98F1705B361D4F"
+}
