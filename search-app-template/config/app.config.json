@@ -1,0 +1,19 @@
+{
+  "appTitle": "DevFix 개발 오류 검색",
+  "appDescription": "오류 증상·원인·해결 사례를 검색합니다.",
+  "index": "devfix-cases",
+  "searchPlaceholder": "오류명, 기술 또는 증상을 입력하세요",
+  "exampleQueries": ["unhealthy", "Docker", "BeanCreationException"],
+  "pageSize": 12,
+  "resultFields": {
+    "title": "title",
+    "description": "solution",
+    "badge": "error_category",
+    "meta": [
+      { "label": "기술", "field": "technology" },
+      { "label": "검증", "field": "verified" },
+      { "label": "해결 시간", "field": "resolution_minutes", "format": "number", "suffix": "분" },
+      { "label": "도움됨", "field": "helpful_count", "format": "number", "suffix": "회" }
+    ]
+  }
+}

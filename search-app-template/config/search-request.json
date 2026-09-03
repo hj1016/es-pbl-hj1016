@@ -1,0 +1,32 @@
+{
+  "_source": [
+    "case_id",
+    "title",
+    "solution",
+    "error_category",
+    "technology",
+    "verified",
+    "resolution_minutes",
+    "helpful_count"
+  ],
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "multi_match": {
+            "query": "{{searchText}}",
+            "fields": ["title^3", "error_message^2", "symptoms^2", "cause", "solution"]
+          }
+        }
+      ],
+      "filter": [
+        { "term": { "verified": true } }
+      ]
+    }
+  },
+  "sort": [
+    { "_score": "desc" },
+    { "resolution_minutes": "asc" },
+    { "helpful_count": "desc" }
+  ]
+}
