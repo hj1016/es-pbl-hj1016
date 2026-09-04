@@ -42,6 +42,7 @@
 ![Day 4 DevFix Dashboard](evidence/day-04/assets/devfix-dashboard-overview.png)
 
 Dashboard 설계와 검증 결과는 [`dashboard-plan.md`](evidence/day-04/dashboard-plan.md)와 [`dashboard-review.md`](evidence/day-04/dashboard-review.md)에서 확인할 수 있다.
+교시별 Day 4 답안은 [`evidence/day-04-practice`](evidence/day-04-practice)에서 확인할 수 있다.
 
 ## 6. AI Search 확장 판단
 
